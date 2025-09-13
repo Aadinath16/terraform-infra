@@ -25,12 +25,17 @@ terraform -chdir=env/dev plan
 terraform -chdir=env/dev apply
 ```
 
+### Apply Terraform Changes with auto approve
+```bash
+terraform -chdir=env/dev apply -auto-approve
+```
+
 ### Destroy Terraform Resources
 ```bash
 terraform -chdir=env/dev destroy
 ```
 
-### Destroy Terraform Resources
+### Destroy Terraform Resources with auto approve
 ```bash
 terraform -chdir=env/dev destroy -auto-approve
 ```
