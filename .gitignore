@@ -1,0 +1,39 @@
+# Ignore Terraform directories inside env folders
+env/*/.terraform/
+
+
+# Ignore Terraform state files
+env/*/*.tfstate
+env/*/*.tfstate.*
+*.tfstate
+*.tfstate.*
+
+
+# Ignore Terraform plan files
+env/*/*.tfplan
+
+# Ignore override files
+env/*/override.tf
+env/*/override.tf.json
+env/*/*_override.tf
+env/*/*_override.tf.json
+
+# Ignore CLI config files (optional, if used per env)
+env/*/.terraformrc
+env/*/terraform.rc
+
+# Ignore lock files
+env/*/.terraform.lock.hcl
+
+# Ignore crash logs
+env/*/crash.log
+
+# Ignore variable files (sensitive info)
+# env/*/*.tfvars
+# env/*/*.tfvars.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+
