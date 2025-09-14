@@ -27,11 +27,8 @@ jobs:
           if [[ "${GITHUB_REF##*/}" == "main" ]]; then
             echo "ENV=prod" >> $GITHUB_ENV
             echo "WORKING_DIR=env/prod" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF##*/}" == "dev" ]]; then
+          elif
             echo "ENV=dev" >> $GITHUB_ENV
-            echo "WORKING_DIR=env/dev" >> $GITHUB_ENV
-          else
-            echo "ENV=none" >> $GITHUB_ENV
             echo "WORKING_DIR=env/dev" >> $GITHUB_ENV
           fi
 
@@ -40,12 +37,9 @@ jobs:
           if [[ "${GITHUB_REF##*/}" == "main" ]]; then
             echo "GCP_PROJECT=${{ secrets.GCP_PROJECT_PROD }}" >> $GITHUB_ENV
             echo "GCP_CREDENTIALS=${{ secrets.GCP_CREDENTIALS_PROD }}" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF##*/}" == "dev" ]]; then
+          elif
             echo "GCP_PROJECT=${{ secrets.GCP_PROJECT_DEV }}" >> $GITHUB_ENV
             echo "GCP_CREDENTIALS=${{ secrets.GCP_CREDENTIALS_DEV }}" >> $GITHUB_ENV
-          else
-            echo "GCP_PROJECT=skip" >> $GITHUB_ENV
-            echo "GCP_CREDENTIALS={}" >> $GITHUB_ENV
           fi
 
       - name: Authenticate to GCP
