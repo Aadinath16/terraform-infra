@@ -64,7 +64,7 @@ jobs:
         run: terraform plan -var-file="terraform.tfvars" -out=tfplan
 
       - name: Upload tfplan artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tfplan
           path: ${{ env.WORKING_DIR }}/tfplan
@@ -109,7 +109,7 @@ jobs:
           project_id: ${{ env.GCP_PROJECT }}
 
       - name: Download tfplan artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: tfplan
           path: ${{ env.WORKING_DIR }}
