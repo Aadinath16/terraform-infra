@@ -5,11 +5,12 @@ on:
     branches:
       - dev
       - main
-      - feature-*       # optional, plan runs on feature branches
+             # optional, plan runs on feature branches
   pull_request:
     branches:
       - dev
       - main
+      - feature-*
 
 
 env:
