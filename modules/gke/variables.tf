@@ -10,6 +10,10 @@ variable "zone" {
   type = string
 }
 
+variable "roles" {
+  type = list(string)
+}
+
 # variable "master_ipv4_cidr" {
 #   type = string
 # }
