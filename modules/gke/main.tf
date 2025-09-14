@@ -155,7 +155,7 @@ resource "google_compute_instance" "bastion" {
   metadata_startup_script = file("${path.module}/bastion-startup.sh")
 
   service_account {
-    email  = google_service_account.bastion.email
+    email  = google_service_account.bastion_sa.email
     scopes = ["cloud-platform"]
   }
 
