@@ -41,5 +41,6 @@ module "gke" {
   vpc_link          = module.network.vpc_self_link
   subnet_link       = module.network.subnet_self_link
   service_acc       = module.service-account.service_acc_name
+  roles             = var.service_account_roles
   depends_on        = [module.network]
 }

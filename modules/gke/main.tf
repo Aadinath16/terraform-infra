@@ -119,15 +119,28 @@ resource "google_container_node_pool" "primary_nodes" {
 
 
 #Bastion Host ----------------------------------------------------
+resource "google_service_account" "bastion_sa" {
+  account_id   = "bastion-sa"
+  display_name = "Custom SA for VM Instance"
+}
+
+# resource "google_project_iam_member" "gke_sa_iam_roles" {
+#   for_each = toset(var.roles)
+#   project  = var.project_id
+#   role     = each.value
+#   member   = "serviceAccount:${google_service_account.gke_service.email}"
+# }
+
+
 resource "google_compute_instance" "bastion" {
   name         = "bastion-host-${var.environment}"
-  project = var.project_id
-  machine_type = "e2-micro" # free tier eligible
-  zone         = var.zone #"us-central1-a" # pick same region/zone as GKE
+  project      = var.project_id
+  machine_type = "e2-micro"
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11" # lightweight
+      image = "debian-cloud/debian-11"
       size  = 20
     }
   }
@@ -135,17 +148,20 @@ resource "google_compute_instance" "bastion" {
   network_interface {
     network    = var.vpc_link
     subnetwork = var.subnet_link
-
-    # Optional external IP for SSH from outside
-    access_config {}
+    access_config {}  # optional external IP for SSH
   }
 
-  metadata = {
-    # ssh-keys = "your-username:${file("~/.ssh/id_rsa.pub")}"
+  # Use the local startup script
+  metadata_startup_script = file("${path.module}/bastion-startup.sh")
+
+  service_account {
+    email  = google_service_account.bastion.email
+    scopes = ["cloud-platform"]
   }
 
   tags = ["bastion"]
 }
+
 
 # Firewall rule to allow SSH into bastion
 resource "google_compute_firewall" "bastion-ssh" {
